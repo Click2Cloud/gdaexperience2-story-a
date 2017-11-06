@@ -8,8 +8,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-PayloadData\azure-cosmos-db-graph-api\*.*
-PayloadData\azure-cosmos-db-graph-api\*
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
