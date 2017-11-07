@@ -1,6 +1,6 @@
 <div class="container container-footer">
     <section class="block-booking">
-        <a class="redefine-search!" routerLink="/">Shop for another flight <span class="icon icon-arrow-right"></span></a>
+        <a class="redefine-search" routerLink="/">Shop for another flight <span class="icon icon-arrow-right"></span></a>
         <hr>
         <div class="pos-r">
             <loading [loaded]="BookingReady"></loading>
@@ -41,7 +41,7 @@
             <!-- end -->
             <div class="row">
                 <div class="col-12 col-md-10">
-                    <h2 class="block-booking-title3 mb-4 mt-3" [innerText]="booking.startDate | utc | date:'yMMMMd'"></h2>
+                    <h2 class="block-booking-title3 mb-4 mt-3" [innerText]="booking.fromDate | date:'yMMMMd'"></h2>
                     <ul>
                         <li class="row">
                             <span class="col-3">FLIGHT</span>
@@ -68,7 +68,7 @@
                         </span>
                     </span>
 
-                    <h2 class="block-booking-title3 mb-4 mt-3" [innerText]="booking.endDate | utc | date:'yMMMMd'"></h2>
+                    <h2 class="block-booking-title3 mb-4 mt-3" [innerText]="booking.endDate | date:'yMMMMd'"></h2>
                     <ul>
                         <li *ngFor="let segment of booking.back.segments" class="row">
                             <span class="col-3" [innerText]="'Flight ' + segment.flight"></span>
