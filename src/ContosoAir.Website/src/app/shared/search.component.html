@@ -72,6 +72,14 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="error_status" id="alertMsgShow" class="alert alert-danger alert-dismissable" #toerror [ngStyle]="{'display': displayerrormsg}">
+            <a class="close" data-dismiss="alert" aria-label="close" (click)="close()">x</a>
+            <strong>Please select valid date!!</strong>
+        </div>
+        <div *ngIf="error_status" id="alertMsgShow" class="alert alert-info alert-dismissable" #toerror [ngStyle]="{'display': displayflighterrmsg}">
+            <a class="close" data-dismiss="alert" aria-label="close" (click)="close()">x</a>
+            <strong>Please select location between Barcelona and Seattle only!!</strong>
+        </div>
         <button type="button" (click)="setBooking()" class="btn btn-md btn-primary block-search-form-button">Find flights</button>
     </fieldset>
 </form>
