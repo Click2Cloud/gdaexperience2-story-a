@@ -26,22 +26,20 @@ export class SearchComponent implements OnInit {
     startDate: { year: number, month: number, day: number };
     endDate: { year: number, month: number, day: number };
     searchData: any;
+    displayerrormsg: string;
+    displayflighterrmsg: string;
+    error_status: boolean;
 
     constructor(private airportsService: AirportsService, private parentRouter: Router, private bookingService: BookingService) {
         this.booking = this.bookingService.get();
     }
 
     ngOnInit() {
-        //if(this.city === 'BCN'){
-        //    const date = new Date();
-        //    let startDate = this.moveDate(date, 15);
-        //    let endDate =  this.moveDate(date, 30);
-        //    // this.startDate= { year: startDate.getFullYear(), month: startDate.getMonth() + 1, day: startDate.getDate() };
-        //     this.endDate= { year: endDate.getFullYear(), month: endDate.getMonth() + 1, day: endDate.getDate() };
-        //}
+        this.displayerrormsg = "none";
+        this.displayflighterrmsg = "none";
+        this.error_status = false;
         this.airportsService.get().subscribe(
             res => {
-                //this.airports
                 let airports = res.sort(function (a, b) {
                     if (a && b && a.city && b.city && typeof a.city === 'string' && typeof b.city === 'string') {
                         let nameA = a.city.toUpperCase();
@@ -75,9 +73,6 @@ export class SearchComponent implements OnInit {
                         if (optionTo.value === 'SEA') {
                             optionTo.selected = true;
                         }
-                        //if(this.city === 'BCN' && airport.code === 'SEA'){
-                        //  optionFrom.selected = true;
-                        //}
                         selectFrom.appendChild(optionFrom);
                         selectTo.appendChild(optionTo);
                     }
@@ -94,6 +89,12 @@ export class SearchComponent implements OnInit {
         this.hasFocus = true;
     }
 
+    // This code block close the alert module which come if fromDate or endDate is empty
+    close() {
+        this.error_status = false;
+    }
+
+
     setBooking() {
 
         this.searchData = {
@@ -109,13 +110,25 @@ export class SearchComponent implements OnInit {
         this.booking.endDate = this.toDate.nativeElement.value;
         this.booking.fromCode = this.fromDestination.nativeElement.value;
         this.booking.toCode = this.toDestination.nativeElement.value,
-            // this.booking.username =  this.bookingService.getUser();
-
             this.bookingService.set(this.booking);
 
-        this.bookingService.searchDetails = this.searchData;
-
-        this.parentRouter.navigateByUrl('/flights');
+        // this code block show alert module when fromDate or endDate is not selected
+        if (this.booking.fromDate == "" || this.booking.endDate == "" || this.booking.endDate < this.booking.fromDate) {
+            this.displayerrormsg = "block";
+            this.error_status = true;
+        }
+        else {
+            this.displayerrormsg = "none";
+            this.error_status = false;
+            if ((this.booking.fromCode == "BCN" && this.booking.toCode == "SEA") || (this.booking.toCode == "BCN" && this.booking.fromCode == "SEA")) {
+                this.bookingService.searchDetails = this.searchData;
+                this.parentRouter.navigateByUrl('/flights');
+            }
+            else {
+                this.displayflighterrmsg = "block";
+                this.error_status = true;
+            }
+        }
     }
 
     private moveDate(date: Date, days: number): Date {
