@@ -51,29 +51,8 @@ export class BookingComponent implements OnInit {
         this.BookingReady = false;
         this.NotificationReady = false;
         this.booking.username = this.name;
-        this.bookingService.push().subscribe(
-            res => {
-                this.BookingReady = true;
-                this.PurchaseReady = true;
-
-                if (this.SoloService == true) {
-                    // Send Notification if applied for Solo Service
-                    this.bookingService.notification_post().subscribe(
-                        res => {
-                            this.NotificationReady = true;
-                        },
-                        err => {
-                            console.log(err);
-                        }
-                    );
-                }
-            },
-            err => {
-                console.log(err);
-            }
-        );
-
-
+        this.BookingReady = true;
+        this.PurchaseReady = true;
     }
 
     // Change Solo Service status on checkbox click
