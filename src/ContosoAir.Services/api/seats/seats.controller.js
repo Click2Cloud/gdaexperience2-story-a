@@ -38,7 +38,6 @@ let get = (req, res) => {
             {
                 for (var j = 0; j <= 5 && preferredseatset != true; j++)
                 {
-                    console.log(seat_array[i][j]);
                     if (seat_array[i][j] == 0) {
                         seat_array[i][j] = 2;
                         preferredseatset = true;
