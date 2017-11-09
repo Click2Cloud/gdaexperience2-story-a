@@ -122,7 +122,6 @@ export class CodeshareComponent implements OnInit {
         this.PanelMode = PropertyPanelMode.Text;
         //create empty object
         this.graphMetadata = {};
-        console.log(params);
         if (params.nodes && params.nodes.length === 1) {
             var node = this.nodes.get(params.nodes[0]);
             var nodeDetails = node.data;
